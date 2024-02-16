@@ -1,0 +1,148 @@
+#Solution :#
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <unordered_set>
+
+using namespace std;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+int score_cal(char c){
+    int score=0;
+    string s="eaionrtlsuEAIONRTLSU";
+    string s1="dgDG";
+    string s2="bcmpBCMP";
+    string s3="fhvwyFHVWY";
+    string s4="kK";
+    string s5="jxJX";
+    string s6="qzQZ";
+    if(s.find(c) != string::npos) score=1;
+    else if(s1.find(c) != string::npos) score=2;
+    else if(s2.find(c) != string::npos) score=3;
+    else if(s3.find(c) != string::npos) score=4;
+    else if(s4.find(c) != string::npos) score=5;
+    else if(s5.find(c) != string::npos) score=8;
+    else if(s6.find(c) != string::npos) score=10;
+
+    return score;
+}
+bool is_unique(const string& str, const string& letters) {
+    unordered_set<char> charSet;
+
+    for (char ch : str){
+        if (letters.find(ch) == string::npos && charSet.find(ch) != charSet.end()) return false;
+        charSet.insert(ch);
+    }
+    return true;
+}
+int wd_score(string wd){
+    int score=0;
+    for(int i=0;i<wd.size();i++){
+        score+=score_cal(wd[i]);
+    }
+    return score;
+}
+bool check(string w, string letters){
+    for (char c : w) {
+        if (letters.find(c) == string::npos) {
+            return false; // Break out of the loop if a character is not in 'letters'
+        }
+        letters.erase(letters.find(c), 1);
+    }
+    return true;
+}
+int main()
+{
+    int n;
+    cin >> n; cin.ignore();
+    vector<string> wd;
+    for (int i = 0; i < n; i++) {
+        string w;
+        getline(cin, w);wd.push_back(w);
+    }
+    string letters;
+    getline(cin, letters);
+    int tmp=0;
+    string ans;
+    for(int i=0;i<wd.size();i++){
+        int w_score=0;
+        if(check(wd[i], letters)){
+            w_score=wd_score(wd[i]);
+            if(w_score>tmp && is_unique(wd[i], letters)){
+                ans=wd[i];
+                tmp=w_score;
+            }
+        }
+    }
+
+    // Write an answer using cout. DON'T FORGET THE "<< endl"
+    // To debug: cerr << "Debug messages..." << endl;
+
+    cout <<ans<< endl;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Problem :#
+
+The Goal
+When playing Scrabble©, each player draws 7 letters and must find a word that scores the most points using these letters.
+
+A player doesn't necessarily have to make a 7-letter word; the word can be shorter. The only constraint is that the word must be made using the 7 letters which the player has drawn.
+
+For example, with the letters  etaenhs, some possible words are: ethane, hates, sane, ant.
+
+Your objective is to find the word that scores the most points using the available letters (1 to 7 letters).
+
+ Rules
+In Scrabble©, each letter is weighted with a score depending on how difficult it is to place that letter in a word. You will see below a table showing the points corresponding to each letter:
+ 
+
+Letters	Points
+e, a, i, o, n, r, t, l, s, u	1
+d, g	                        2
+b, c, m, p	                  3
+f, h, v, w, y	                4
+k	                            5
+j, x	                        8
+q, z	                        10
+The word banjo earns you 3 + 1 + 1 + 8 + 1 = 14 points.
+
+A dictionary of authorized words is provided as input for the program. The program must find the word in the dictionary which wins the most points for the seven given letters (a letter can only be 
+used once). If two words win the same number of points, then the word which appears first in the order of the given dictionary should be chosen.
+ 
+
+All words will only be composed of alphabetical characters in lower case. There will always be at least one possible word.
+
+ Game Input
+Input
+Line 1: the number N of words in the dictionary
+
+N following lines: the words in the dictionary. One word per line.
+
+Last line: the 7 letters available.
+
+Output
+The word that scores the most points using the available letters (1 to 7 letters). The word must belong to the dictionary. Each letter must be used at most once in the solution. There is always a 
+solution.
+Constraints
+0 < N < 100000
+Words in the dictionary have a maximum length of 30 characters.
+Example :
+  Input
+  5
+  because
+  first
+  these
+  could
+  which
+  hicquwh
+
+  Output
+  which
