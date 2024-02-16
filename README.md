@@ -33,7 +33,7 @@ Copy code
 cd CodinGame/Hard
 Open the solution file (e.g., main.cpp) in your preferred C++ development environment.
 
-Directory Structure
+## Directory Structure
 Easy/
 
 PuzzleName/
@@ -45,14 +45,14 @@ Medium/
 Hard/
 
 ... (similar structure as Easy)
-How to Use
+## How to Use
 Compile and run the solution in your C++ compiler.
 
 bash
 Copy code
 g++ solution.cpp -o main
 
-Contributing
+## Contributing
 If you would like to contribute or improve existing solutions, please follow these steps:
 
 Fork the repository.
@@ -73,3 +73,11 @@ bash
 Copy code
 git push origin feature/your-feature
 Open a pull request with a detailed description of your changes.
+
+License
+This repository is licensed under the MIT License.
+
+sql
+Copy code
+
+This template reflects the structure of Easy, Medium, and Hard difficulty levels within your repository. Feel free to adjust it further based on your specific needs.
