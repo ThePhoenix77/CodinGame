@@ -1,0 +1,71 @@
+#Solution :#
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+int main()
+{
+    int x_1;
+    int y_1;
+    int r_1;
+    cin >> x_1 >> y_1 >> r_1; cin.ignore();
+    int x_2;
+    int y_2;
+    int r_2;
+    cin >> x_2 >> y_2 >> r_2; cin.ignore();
+    //distance
+    double d=sqrt(pow(x_2 - x_1, 2) + pow(y_2 - y_1, 2));
+    //intersection check
+    if(d>r_1+r_2) {cout<<"0.00"<<endl;return 0;}
+    //check if one cercle is immerged into the other
+    if (d <= abs(r_1 - r_2)) {
+        double asghar_radius = (r_1 < r_2) ? r_1 : r_2;
+        cout<<fixed << setprecision(2) << M_PI * pow(asghar_radius, 2)<<endl;
+        return 0;
+    }
+    //intersection area
+    double alpha1 = acos((pow(r_1, 2) + pow(d, 2) - pow(r_2, 2)) / (2 * r_1 * d));
+    double alpha2 = acos((pow(r_2, 2) + pow(d, 2) - pow(r_1, 2)) / (2 * r_2 * d));
+    double area1 = 0.5 * pow(r_1, 2) * (2 * alpha1 - sin(2 * alpha1));
+    double area2 = 0.5 * pow(r_2, 2) * (2 * alpha2 - sin(2 * alpha2));
+    cout<<fixed << setprecision(2) <<area1 + area2<<endl;
+
+    // Write an answer using cout. DON'T FORGET THE "<< endl"
+    // To debug: cerr << "Debug messages..." << endl;
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Problem :#
+
+ 	Goal
+Given centers and radius of two disks, you must determine their intersection area, rounded at a precision of 10^-2.
+So if you think the area is 42.3371337, you must output 42.34 and if your answer is 41.78954719, you must print 41.79.
+
+If these disks do not intersect, or intersect in one point, then the area is 0.00 .
+  Input
+    Line 1 : x1 y1 r1. x1 and y1 determine the position of the center of the first disk, and r1 its radius
+    Line 2 : x2 y2 r2. x2 and y2 determine the position of the center of the second disk, and r2 its radius
+  Output
+    The intersection area of the disks, rounded at a precision of 10^-2.
+      Constraints
+        -1000 < x1,y1,x2,y2 < 1000
+        1 ⩽ r1,r2 < 1000
+      Example
+        Input
+          0 10 1
+          10 0 1
+        Output
+          0.00
